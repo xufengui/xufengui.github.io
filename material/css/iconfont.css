@@ -1,0 +1,179 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 1896629 */
+  src: url('../fonts/iconfont.woff2') format('woff2'),
+       url('../fonts/iconfont.woff') format('woff'),
+       url('../fonts/iconfont.ttf') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-Android:before {
+  content: "\e604";
+}
+
+.icon-arrow-down:before {
+  content: "\e61a";
+}
+
+.icon-arrow-up:before {
+  content: "\e64e";
+}
+
+.icon-sim-card:before {
+  content: "\e799";
+}
+
+.icon-password:before {
+  content: "\e642";
+}
+
+.icon-language:before {
+  content: "\e6bb";
+}
+
+.icon-username:before {
+  content: "\e602";
+}
+
+.icon-basic:before {
+  content: "\e690";
+}
+
+.icon-back:before {
+  content: "\ea0a";
+}
+
+.icon-workmode:before {
+  content: "\fb2c";
+}
+
+.icon-24g:before {
+  content: "\e63a";
+}
+
+.icon-5g:before {
+  content: "\e63b";
+}
+
+.icon-speed:before {
+  content: "\e63d";
+}
+
+.icon-advance:before {
+  content: "\e603";
+}
+
+.icon-device:before {
+  content: "\e87d";
+}
+
+.icon-wireless:before {
+  content: "\e66b";
+}
+
+.icon-status:before {
+  content: "\e655";
+}
+
+.icon-security:before {
+  content: "\e62c";
+}
+
+.icon-network:before {
+  content: "\e756";
+}
+
+.icon-services:before {
+  content: "\e67c";
+}
+
+.icon-system:before {
+  content: "\e61f";
+}
+
+.icon-clear:before {
+  content: "\e940";
+}
+
+.icon-visible:before {
+  content: "\e61c";
+}
+
+.icon-unvisible:before {
+  content: "\e75a";
+}
+
+.icon-help:before {
+  content: "\e62b";
+}
+
+.icon-warning:before {
+  content: "\e68f";
+}
+
+.icon-upload:before {
+  content: "\e606";
+}
+
+.icon-skip:before {
+  content: "\e60e";
+}
+
+.icon-logout:before {
+  content: "\e620";
+}
+
+.icon-save:before {
+  content: "\e8f8";
+}
+
+.icon-up:before {
+  content: "\e673";
+}
+
+.icon-down:before {
+  content: "\e61b";
+}
+
+.icon-remove:before {
+  content: "\e60f";
+}
+
+.icon-add:before {
+  content: "\e6d8";
+}
+
+.icon-edit:before {
+  content: "\e652";
+}
+
+.icon-apply:before {
+  content: "\e641";
+}
+
+.icon-find:before {
+  content: "\e63c";
+}
+
+.icon-reset:before {
+  content: "\e808";
+}
+
+.icon-download:before {
+  content: "\e600";
+}
+
+.icon-link:before {
+  content: "\e601";
+}
+
+.icon-reload:before {
+  content: "\e711";
+}
+
