@@ -1,11 +1,14 @@
-
+/**
+ * 对jQuery.prototype进得扩展，就是为jQuery类添加“成员函数，即插件机制”
+ */
 $.fn.extend({
     /* 时钟 */
     clock:function () {
         var HL={};
+        /*this.$el指的是当前组件中的元素*/ 
         HL.$el=$(this);
         HL.ZHCNArr=['零','一','二','三','四','五','六','七','八','九','十'];
-        /* 转为简体中文 */
+        /* 定义时间显示格式 */
         HL.changeZHCN=function (value) {
             /* 小于 10 */
             if(value<10){
@@ -27,7 +30,7 @@ $.fn.extend({
                 str=this.ZHCNArr[10]+this.ZHCNArr[parseInt(val.charAt(1),10)];
                 return str;
             }
- str=this.ZHCNArr[parseInt(val.charAt(0),10)]+this.ZHCNArr[10]+this.ZHCNArr[parseInt(val.charAt(1),10)];
+            str=this.ZHCNArr[parseInt(val.charAt(0),10)]+this.ZHCNArr[10]+this.ZHCNArr[parseInt(val.charAt(1),10)];
             return str;
         };
 
