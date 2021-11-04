@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>o_tea</title>
-<link type="text/css" href="css/style.css" rel="stylesheet" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>o_tea</title>
+	<link type="text/css" href="./css/style.css" rel="stylesheet" />
+	<link type="text/css" href="./css/cube.css" rel="stylesheet" />
+	<link rel="stylesheet" href="./css/clock.css" />
 </head>
 <body>
-<div class="box">
-	<ul class="minbox">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
-	<ol class="maxbox">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ol>
-</div>
+	<section class="container">
+		<canvas id="canvas"></canvas>
+		<div class="box">
+			<ul class="minbox">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+			<ol class="maxbox">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+		</div>
+		<ul class="clock" id="clock">
+			<hr>
+		</ul>
+	</section>
 </body>
+
+<script src="./js/cube.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/clock.js"></script>
+<script type="text/javascript">
+    $("#clock").clock();
+</script>
 </html>
