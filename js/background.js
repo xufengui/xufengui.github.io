@@ -1,4 +1,4 @@
-(function(win, doc) {
+!(function(win, doc) {
     const maxW = win.innerWidth;
     const maxH = win.innerHeight;
     const maxSize = 5;
