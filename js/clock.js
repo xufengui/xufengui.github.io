@@ -1,234 +1,109 @@
-/**
- * 对jQuery.prototype进得扩展，就是为jQuery类添加“成员函数，即插件机制”
- */
-$.fn.extend({
-    /* 时钟 */
-    clock:function () {
-        var HL={};
-        /*this.$el指的是当前组件中的元素*/ 
-        HL.$el=$(this);
-        HL.ZHCNArr=['零','一','二','三','四','五','六','七','八','九','十'];
-        /* 定义时间显示格式 */
-        HL.changeZHCN=function (value) {
-            /* 小于 10 */
-            if(value<10){
-                return this.ZHCNArr[value];
+var monthText = ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"];
+var dayText = ["零一号","零二号","零三号","零四号","零五号","零六号","零七号","零八号","零九号","十号","十一号","十二号","十三号","十四号","十五号",
+          "十六号","十七号","十八号","十九号","二十号","二十一号","二十二号","二十三号","二十四号","二十五号","二十六号","二十七号","二十八号","二十九号","三十号","三十一号"];
+var weekText = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+var hourText = ["零点","零一点","零两点","零三点","零四点","零五点","零六点","零七点","零八点","零九点","零十点","十一点","十二点","十三点","十四点","十五点","十六点","十七点",
+          "十八点","十九点","二十点","二十一点","二十二点","二十三点"];
+var minuteText = ["零一分","零二分","零三分","零四分","零五分","零六分","零七分","零八分","零九分","零十分","十一分","十二分","十三分","十四分","十五分","十六分","十七分","十八分",
+          "十九分","二十分","二十一分","二十二分","二十三分","二十四分","二十五分","二十六分","二十七分","二十八分","二十九分","三十分","三十一分","三十二分","三十三分","三十四分",
+          "三十五分","三十六分","三十七分","三十八分","三十九分","四十分","四十一分","四十二分","四十三分","四十四分","四十五分","四十六分","四十七分","四十八分","四十九分","五十分",
+          "五十一分","五十二分","五十三分","五十四分","五十五分","五十六分","五十七分","五十八分","五十九分","六十分"];
+var secondsText = ["零一秒","零二秒","零三秒","零四秒","零五秒","零六秒","零七秒","零八秒","零九秒","零十秒","十一秒","十二秒","十三秒","十四秒","十五秒","十六秒","十七秒","十八秒","十九秒",
+          "二十秒","二十一秒","二十二秒","二十三秒","二十四秒","二十五秒","二十六秒","二十七秒","二十八秒","二十九秒","三十秒","三十一秒","三十二秒","三十三秒","三十四秒","三十五秒","三十六秒",
+          "三十七秒","三十八秒","三十九秒","四十秒","四十一秒","四十二秒","四十三秒","四十四秒","四十五秒","四十六秒","四十七秒","四十八秒","四十九秒","五十秒","五十一秒","五十二秒","五十三秒",
+          "五十四秒","五十五秒","五十六秒","五十七秒","五十八秒","五十九秒","六十秒"];
+var clock;
+var monthList = [];
+var dayList = [];
+var weekList = [];
+var hourList = [];
+var minuteList = [];
+var secondsList = [];
+var isCircle = false;
+var textSet = [
+  [monthText,monthList],
+  [dayText,dayList],
+  [weekText,weekList],
+  [hourText,hourList],
+  [minuteText,minuteList],
+  [secondsText,secondsList]
+];
+window.onload = function()
+{
+  init();
+  setInterval(function() {
+    runTime();
+  },100);
+  changePosition();
+  setTimeout(function() {
+    changeCircle();
+  },2000);
+}
+function init() {
+  clock=document.getElementById('clock');
+  for(var i=0; i<textSet.length ;i++) {
+      for(var j=0; j<textSet[i][0].length; j++) {
+          var temp=createLabel(textSet[i][0][j]);
+              clock.appendChild(temp);textSet[i][1].push(temp);
+      }
+  }
+}
+function createLabel(text) {
+  var div=document.createElement('div');
+  div.classList.add('label');
+  div.innerText=text;return div;
+}
+function runTime() {
+  var now = new Date();
+  var month = now.getMonth();
+  var day = now.getDate();
+  var week = now.getDay();
+  var hour = now.getHours();
+  var minute = now.getMinutes();
+  var seconds = now.getSeconds();
+  initStyle();
+  var nowValue = [month,day-1,week,hour,minute,seconds];
+  for(var i = 0; i<nowValue.length; i++) {
+    var num=nowValue[i];
+    textSet[i][1][num].style.color='#fff';
+  }
+  if(isCircle) {
+    var widthMid=document.body.clientWidth/2;
+    var heightMid=document.body.clientHeight/2;
+    for(var i=0; i<textSet.length; i++) {
+      for(var j=0; j<textSet[i][0].length; j++) {
+        var r=(i+1)*35+36*i;
+        var deg=360/textSet[i][1].length*(j-nowValue[i]);
+        var x=r*Math.sin(deg*Math.PI/180)+widthMid;
+        var y=heightMid-r*Math.cos(deg*Math.PI/180);
+        var temp=textSet[i][1][j];
+        temp.style.transform='rotate('+(-90+deg)+'deg)';
+        temp.style.left=x+'px';
+        temp.style.top=y+'px';
             }
-
-            var val=value.toString(),str='';
-            /* 整 10 */
-            if(val.charAt(1)==0){
-                if(val.charAt(0)!=1){
-                    str=this.ZHCNArr[parseInt(val.charAt(0),10)];
-                }
-                str+=this.ZHCNArr[10];
-                return str;
-            }
-
-            /* 小于 20 */
-            if(value<20){
-                str=this.ZHCNArr[10]+this.ZHCNArr[parseInt(val.charAt(1),10)];
-                return str;
-            }
-            str=this.ZHCNArr[parseInt(val.charAt(0),10)]+this.ZHCNArr[10]+this.ZHCNArr[parseInt(val.charAt(1),10)];
-            return str;
-        };
-
-        /* 设置日期 */
-        HL.setDate=function(){
-            var yearStr='',monthStr='',dayStr='';
-            var y=this.dateInfo.year.toString();
-            for(var i=0;i<y.length;i++){
-                yearStr+=this.changeZHCN(parseInt(y.charAt(i),10));
-            }
-            monthStr=this.changeZHCN(this.dateInfo.month);
-            dayStr=this.changeZHCN(this.dateInfo.day);
-            if(this.els){
-                this.els.date.html(yearStr+'年'+monthStr+'月'+dayStr+'日');
-            }else {
-                this.$el.append('<li class="date">'+(yearStr+'年'+monthStr+'月'+dayStr+'日')+'</li>');
-            }
-        };
-        /* 设置小时 */
-        HL.setHour=function(){
-            var str='',rotateArr=[];
-            for(var i=1;i<=24;i++){
-                rotateArr.push(r=360/24*(i-1)*-1);
-                str+='<div><div>'+(this.changeZHCN(i))+'时</div></div>';
-            }
-            this.$el.append('<li class="hour on-hour">'+str+'</li>');
-            setTimeout(function () {
-                HL.$el.find(".on-hour>div").each(function (index,el) {
-                    $(el).css({
-                        "transform":"rotate("+rotateArr[index]+"deg)"
-                    })
-                });
-                setTimeout(function () {
-                    HL.setMinute();
-                },300);
-            },100)
-        };
-        /* 设置分钟 */
-        HL.setMinute=function(){
-            var str='',rotateArr=[];
-            for(var i=1;i<=60;i++){
-                rotateArr.push(360/60*(i-1)*-1);
-                str+='<div><div>'+(this.changeZHCN(i))+'分</div></div>';
-            }
-            this.$el.append('<li class="hour minute on-minute">'+str+'</li>');
-            setTimeout(function () {
-                HL.$el.find(".on-minute>div").each(function (index,el) {
-                    $(el).css({
-                        "transform":"rotate("+rotateArr[index]+"deg)"
-                    })
-                });
-                setTimeout(function () {
-                    HL.setSec();
-                },300)
-            },100);
-        };
-        /* 设置秒 */
-        HL.setSec=function(){
-            var str='',rotateArr=[];
-            for(var i=1;i<=60;i++){
-                rotateArr.push(360/60*(i-1)*-1);
-                str+='<div><div>'+(this.changeZHCN(i))+'秒</div></div>';
-            }
-            this.$el.append('<li class="hour sec on-sec">'+str+'</li>');
-            setTimeout(function () {
-                HL.$el.find(".on-sec>div").each(function (index,el) {
-                    $(el).css({
-                        "transform":"rotate("+rotateArr[index]+"deg)"
-                    })
-                });
-                setTimeout(function () {
-                    HL.initRotate();
-                },1300);
-            },100);
-        };
-        /* 初始化滚动位置 */
-        HL.initRotate=function(){
-            this.rotateInfo={
-                "h":360/24*(this.dateInfo.hour-1),
-                "m":360/60*(this.dateInfo.minute-1),
-                "s":360/60*(this.dateInfo.sec-1),
-            };
-            this.els={
-                "date":this.$el.find(".date"),
-                "hour":this.$el.find(".on-hour"),
-                "minute":this.$el.find(".on-minute"),
-                "sec":this.$el.find(".on-sec")
-            };
-            this.els.hour.css({
-                "transform":"rotate("+this.rotateInfo.h+"deg)"
-            });
-            this.els.minute.css({
-                "transform":"rotate("+this.rotateInfo.m+"deg)"
-            });
-            this.els.sec.css({
-                "transform":"rotate("+this.rotateInfo.s+"deg)"
-            });
-            setTimeout(function () {
-                HL.$el.find("hr").addClass("active").css({
-                    "width":"49%"
-                });
-                HL.start();
-            },300);
-        };
-        /* 启动 */
-        HL.start=function(){
-            setTimeout(function () {
-                if(HL.dateInfo.sec<=60){
-                    HL.dateInfo.sec++;
-                    var r=360/60*(HL.dateInfo.sec-1);
-                    HL.els.sec.css({
-                        "transform":"rotate("+r+"deg)"
-                    });
-                    HL.minuteAdd();
-                    HL.start();
-                }else {
-                    console.log(HL.dateInfo.sec)
-                }
-            },1000);
-        };
-        /* 分钟数增加 */
-        HL.minuteAdd=function(){
-            if(HL.dateInfo.sec==60+1){
-                setTimeout(function () {
-                    HL.els.sec.css({
-                        "transform":"rotate(0deg)",
-                        "transition-duration": "0s"
-                    });
-                    HL.dateInfo.sec=1;
-                    setTimeout(function () {
-                      HL.els.sec.attr("style","transform:rotate(0deg)");
-                    },100);
-                    HL.dateInfo.minute++;
-                    var r=360/60*(HL.dateInfo.minute-1);
-                    HL.els.minute.css({
-                        "transform":"rotate("+r+"deg)"
-                    });
-                    HL.hourAdd();
-                },300);
-            }
-        };
-        /* 小时数增加 */
-        HL.hourAdd=function(){
-            if(HL.dateInfo.minute==60+1){
-                setTimeout(function () {
-                    HL.els.minute.css({
-                        "transform":"rotate(0deg)",
-                        "transition-duration": "0s"
-                    });
-                    HL.dateInfo.minute=1;
-                    setTimeout(function () {
-                   HL.els.minute.attr("style","transform:rotate(0deg)");
-                    },100);
-                    HL.dateInfo.hour++;
-                    var r=360/24*(HL.dateInfo.hour-1);
-                    HL.els.hour.css({
-                        "transform":"rotate("+r+"deg)"
-                    });
-                    HL.dayAdd();
-                },300);
-            }
-        };
-        /* 天数增加 */
-        HL.dayAdd=function(){
-            if(HL.dateInfo.hour==24+1){
-                setTimeout(function () {
-                    HL.els.hour.css({
-                        "transform":"rotate(0deg)",
-                        "transition-duration": "0s"
-                    });
-                    HL.dateInfo.hour=1;
-                    setTimeout(function () {
-                        HL.els.hour.attr("style","transform:rotate(0deg)");
-                    },100);
-
-                    var nowDate=new Date();
-                    HL.dateInfo.year=nowDate.getFullYear();
-                    HL.dateInfo.month=nowDate.getMonth()+1;
-                    HL.dateInfo.day=nowDate.getDate();
-                    HL.setDate();
-                },300);
-            }
-        };
-        /* 初始化 */
-        HL.init=function(){
-            var nowDate=new Date();
-            this.dateInfo={
-                "year":nowDate.getFullYear(),
-                "month":nowDate.getMonth()+1,
-                "day":nowDate.getDate(),
-                "hour":nowDate.getHours(),
-                "minute":nowDate.getMinutes(),
-                "sec":nowDate.getSeconds()
-            };
-            console.log(this.dateInfo);
-            this.setDate();
-            this.setHour();
-        };
-        HL.init();
+        }
     }
-});
+}
+function initStyle() {
+  var label=document.getElementsByClassName('label');
+  for(var i=0; i<label.length;i++) {
+    label[i].style.color='#4b4f52';
+  }
+}
+function changePosition() {
+  for(let i=0;i<textSet.length; i++) {
+      for(let j=0; j<textSet[i][1].length; j++){
+        let tempX=textSet[i][1][j].offsetLeft+"px";
+        let tempY=textSet[i][1][j].offsetTop+"px";
+        setTimeout(function() {
+            textSet[i][1][j].style.position="absolute";
+            textSet[i][1][j].style.left=tempX;
+            textSet[i][1][j].style.top=tempY;
+        },50);
+          }
+      }
+      }
+function changeCircle() {
+  isCircle=true;
+  clock.style.transform = "rotate(90deg)";
+}

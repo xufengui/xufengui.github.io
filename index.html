@@ -3,43 +3,42 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>o_tea</title>
-	<link type="text/css" href="./css/style.css" rel="stylesheet" />
-	<link type="text/css" href="./css/cube.css" rel="stylesheet" />
-	<link rel="stylesheet" href="./css/clock.css" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+	<title>o_tea index</title>
+	<link type="text/css" href="./css/index-style.css" rel="stylesheet" />
+	<link type="text/css" href="./css/menu.css" rel="stylesheet" />
 </head>
 <body>
 	<section class="container">
 		<canvas id="canvas"></canvas>
-		<div class="box">
-			<ul class="minbox">
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ul>
-			<ol class="maxbox">
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-				<li></li>
-			</ol>
-		</div>
-		<ul class="clock" id="clock">
-			<hr>
-		</ul>
+		<section class="header-container">
+			<div class="nav">
+				<ul>
+					<li><a href="#">主页</a></li>
+					<li><a href="./view/recollect.html">回忆</a></li>
+					<li><a href="./view/now.html">现在</a></li>
+					<li><a href="./view/future.html">未来</a></li>
+				</ul>
+			</div>
+		</section>
+		<section class="main-container">
+			<div class="main-menubox">
+				<div class="demo">
+					<div class="navbar">导航
+						<ul class="menu">
+						<li><a href="#" >主页</a></li>
+						<li><a href="./view/recollect.html" >回忆</a></li>
+						<li><a href="./view/now.html" >现在</a></li>
+						<li><a href="./view/future.html" >未来</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
 	</section>
 </body>
 
-<script src="./js/cube.js"></script>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/clock.js"></script>
-<script type="text/javascript">
-    $("#clock").clock();
+<script src="./js/background.js"></script>
+
 </script>
 </html>
