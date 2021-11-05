@@ -89,9 +89,9 @@
         link() {
             if(!this.id) return;
             let len = move_stars.length;
-            // 关键思想：取当前id，之前的4个点，每绘制一次就向前取4个点，以此类推
+            // 关键思想：取当前id，之前的9个点，每绘制一次就向前取4个点，以此类推
             // 而不是move_stars最后的四个点，否则的话只有最后几个点会被连接起来
-            let arr = move_stars.slice(this.id - 3, this.id);
+            let arr = move_stars.slice(this.id - 8, this.id);
             let endIdx = arr.length - 1;
 
             ctx.save();
