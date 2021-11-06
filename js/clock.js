@@ -72,7 +72,7 @@ function runTime() {
     var heightMid=document.body.clientHeight/2;
     for(var i=0; i<textSet.length; i++) {
       for(var j=0; j<textSet[i][0].length; j++) {
-        var r=(i+1)*35+36*i;
+        var r=(i+1)*35+30*i;
         var deg=360/textSet[i][1].length*(j-nowValue[i]);
         var x=r*Math.sin(deg*Math.PI/180)+widthMid;
         var y=heightMid-r*Math.cos(deg*Math.PI/180);
